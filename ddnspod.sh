@@ -147,7 +147,7 @@ rreadlink() ( # Execute the function in a *subshell* to localize variables and t
   fi
 )
 
-DIR=$(dirname -- "$(readlink "$0")")
+DIR=$(dirname -- "$(rreadlink "$0")")
 
 # Global Variables:
 
@@ -224,7 +224,7 @@ arDdnsUpdate() {
     #echo $recordID
     # Update IP
     myIP=$(arIpAddress)
-    recordRS=$(arApiPost "Record.Modify" "domain_id=${domainID}&sub_domain=${2}&record_type=${record_type}&record_id=${recordID}&record_line=默认&value=${myIP}")
+    recordRS=$(arApiPost "Record.Ddns" "domain_id=${domainID}&sub_domain=${2}&record_type=${record_type}&record_id=${recordID}&record_line_id=0&value=${myIP}")
     recordCD=$(echo $recordRS | sed 's/.*{"code":"\([0-9]*\)".*/\1/')
     recordIP=$(echo $recordRS | sed 's/.*,"value":"\([0-9a-z\.:]*\)".*/\1/')
     
